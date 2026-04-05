@@ -119,3 +119,32 @@ Record of all metaprompts used to generate artifacts in this project. Each entry
 > Creado perfectamente acorde con lo descrito.
 
 ---
+
+## INVEST Evaluation per User Story
+
+**Prompt (metaprompt):**
+> As a Product Owner of LTI ATS, read `LTI-JCT/UserStories-JCT.md` and add an INVEST evaluation table after the acceptance criteria of each user story. Edit the file in place — do not create a new file.
+
+- For each US-NNN story, append the following table immediately after its last acceptance scenario:
+  ```
+  **INVEST Evaluation**
+
+  | Criterion | Rating | Notes |
+  |-----------|--------|-------|
+  | Independent | ✅ / ⚠️ | One-line rationale |
+  | Negotiable | ✅ / ⚠️ | One-line rationale |
+  | Valuable | ✅ / ⚠️ | One-line rationale |
+  | Estimable | ✅ / ⚠️ | One-line rationale |
+  | Small | ✅ / ⚠️ | One-line rationale |
+  | Testable | ✅ / ⚠️ | One-line rationale |
+  ```
+- Use ✅ when the criterion is fully satisfied, ⚠️ when there is a known caveat or risk
+- Notes must reference concrete evidence from the story (points, sprint fit, BDD scenario count, runtime dependencies)
+- Do not modify any other section of the file
+
+**Output:** `LTI-JCT/UserStories-JCT.md` — INVEST table appended inline after each story's acceptance criteria
+
+**Opinion:**
+> Revisando la documentación, faltaba la parte de INVEST por cada Story. El formato de tabla con ✅/⚠️ más una nota concreta por criterio es mucho más útil que una evaluación narrativa. El rating ⚠️ obliga a documentar el riesgo en lugar de ignorarlo, lo que hace el INVEST accionable durante la refinement session.
+
+---

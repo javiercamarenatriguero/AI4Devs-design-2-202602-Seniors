@@ -47,6 +47,17 @@ _Date: 2026-04-05_
 - **When** the recruiter marks it as "Filled"
 - **Then** the application URL becomes inactive and the requisition moves to the closed jobs archive
 
+**INVEST Evaluation**
+
+| Criterion | Rating | Notes |
+|-----------|--------|-------|
+| Independent | ✅ | No runtime dependency on other stories; form and API can be built as a standalone module |
+| Negotiable | ✅ | Field set, validation rules, and "Filled" flow are open to refinement before sprint start |
+| Valuable | ✅ | Enables the entire hiring workflow — zero hiring without a posted job requisition |
+| Estimable | ✅ | Well-understood CRUD form pattern; 2 tickets sized at 6 pts |
+| Small | ✅ | 6 pts fits comfortably within a 20-pt sprint |
+| Testable | ✅ | 3 BDD scenarios with binary, observable outcomes (list visible, URL inactive, archive entry) |
+
 ---
 
 ### US-002: Apply for a job as a candidate
@@ -74,6 +85,17 @@ _Date: 2026-04-05_
 - **When** the submission is processed
 - **Then** explicit consent to process personal data is recorded with a timestamp and stored as an auditable record
 
+**INVEST Evaluation**
+
+| Criterion | Rating | Notes |
+|-----------|--------|-------|
+| Independent | ⚠️ | Logically requires an active job (US-001) at runtime, but the form can be developed and tested with a stub URL |
+| Negotiable | ✅ | Question fields, file-size limits, and duplicate-rejection policy are open to refinement |
+| Valuable | ✅ | Without this story no candidate can enter the pipeline; blocks the entire hiring loop |
+| Estimable | ✅ | Standard form + file upload + consent capture; 3 tickets at 8 pts |
+| Small | ✅ | 8 pts fits within a 20-pt sprint |
+| Testable | ✅ | 3 BDD scenarios covering confirmation email, duplicate guard, and GDPR consent record |
+
 ---
 
 ### US-003: Manage candidates on the pipeline board
@@ -96,6 +118,17 @@ _Date: 2026-04-05_
 - **When** they choose "Move to stage" from the bulk actions menu
 - **Then** all selected candidates move to the specified stage and automations fire for each individually
 
+**INVEST Evaluation**
+
+| Criterion | Rating | Notes |
+|-----------|--------|-------|
+| Independent | ⚠️ | Needs candidate data (US-002) at runtime, but the Kanban UI can be built and tested against mock data |
+| Negotiable | ✅ | Card fields, column layout, and automation trigger scope are open to refinement |
+| Valuable | ✅ | Core recruiter workflow; without pipeline visibility hiring management remains in spreadsheets |
+| Estimable | ✅ | Kanban drag-and-drop pattern is well-understood; 2 tickets at 8 pts |
+| Small | ✅ | 8 pts fits within a 20-pt sprint |
+| Testable | ✅ | 2 BDD scenarios with audit log assertions (actor + timestamp) and automation fire confirmation |
+
 ---
 
 ### US-004: Schedule an interview with automatic invites
@@ -117,6 +150,17 @@ _Date: 2026-04-05_
 - **Given** a scheduled interview exists
 - **When** the recruiter changes the time
 - **Then** updated invites are sent to all participants, the original invite is cancelled, and the candidate's timeline reflects the new time
+
+**INVEST Evaluation**
+
+| Criterion | Rating | Notes |
+|-----------|--------|-------|
+| Independent | ⚠️ | Logically requires pipeline stages (US-003) to trigger scheduling, but the scheduling panel and iCal service can be built in isolation |
+| Negotiable | ✅ | Calendar provider, reminder window (currently 24h), and participant selection rules are negotiable |
+| Valuable | ✅ | Eliminates coordination emails; directly supports the time-to-hire ≤ 28-day KPI |
+| Estimable | ✅ | iCal generation + email dispatch is a well-known pattern; 3 tickets at 8 pts |
+| Small | ✅ | 8 pts fits within a 20-pt sprint |
+| Testable | ✅ | 2 BDD scenarios with measurable outcomes (invite received, cancel-and-reissue on reschedule) |
 
 ---
 
@@ -144,6 +188,17 @@ _Date: 2026-04-05_
 - **Given** a recruiter moves a candidate to the "Rejected" stage
 - **When** the transition occurs
 - **Then** a rejection email is sent automatically and the candidate can no longer access the application portal for that role
+
+**INVEST Evaluation**
+
+| Criterion | Rating | Notes |
+|-----------|--------|-------|
+| Independent | ⚠️ | Stage transitions (US-003) must exist at runtime to trigger emails, but the template engine and dispatch service can be built and tested independently |
+| Negotiable | ✅ | Template design, merge tags, trigger conditions, and delivery SLA (currently 5 min) are negotiable |
+| Valuable | ✅ | Reduces candidate anxiety and recruiter support burden; directly supports the ≤ 48h response-time KPI |
+| Estimable | ✅ | Template + trigger dispatch pattern; 2 tickets at 6 pts |
+| Small | ✅ | 6 pts fits comfortably within a 20-pt sprint |
+| Testable | ✅ | 3 BDD scenarios covering acknowledgment, stage-change notification, and rejection with access revocation |
 
 ---
 
@@ -174,6 +229,17 @@ _Date: 2026-04-05_
 - **When** they mark it as "Overridden" and proceed with the candidate
 - **Then** the override is recorded in the audit log and the candidate's manual status takes precedence in sorted views
 
+**INVEST Evaluation**
+
+| Criterion | Rating | Notes |
+|-----------|--------|-------|
+| Independent | ⚠️ | Needs application data (US-002) at runtime; the scoring service can be developed independently with fixture resumes |
+| Negotiable | ✅ | LLM provider, scoring scale, rationale format, and override flow are negotiable |
+| Valuable | ✅ | Directly enables the ≥ 25 candidates/week KPI by reducing per-resume review time |
+| Estimable | ⚠️ | Spike (TK-013) required to confirm model latency and GDPR fit before committing to full estimate; provisional 10 pts |
+| Small | ⚠️ | 10 pts consumes half of a 20-pt sprint; TK-013 spike must finish before TK-014 can start |
+| Testable | ✅ | 2 BDD scenarios with measurable targets (score displayed within 60s, override recorded in audit log) |
+
 ---
 
 ### US-007: Draft a job description with AI assistance
@@ -196,6 +262,17 @@ _Date: 2026-04-05_
 - **When** they click "Regenerate"
 - **Then** a new draft incorporating the updated responsibilities is produced and the previous version is accessible via "Undo"
 
+**INVEST Evaluation**
+
+| Criterion | Rating | Notes |
+|-----------|--------|-------|
+| Independent | ✅ | An optional AI enhancement to the requisition form; US-001 is not a blocker at build time |
+| Negotiable | ✅ | LLM provider, draft structure (sections), response time target, and Regenerate/Undo behaviour are negotiable |
+| Valuable | ✅ | Reduces time-to-post; directly supports the AI adoption ≥ 70% of job postings KPI |
+| Estimable | ✅ | LLM API integration + rich-text editor; 2 tickets at 6 pts |
+| Small | ✅ | 6 pts fits comfortably within a 20-pt sprint |
+| Testable | ✅ | 2 BDD scenarios with measurable latency target (< 10s) and Undo state verification |
+
 ---
 
 ### US-008: View pipeline health and time-to-hire metrics
@@ -217,6 +294,17 @@ _Date: 2026-04-05_
 - **Given** a recruiter selects a date range
 - **When** the report is generated
 - **Then** average time-to-hire is shown per job and in aggregate, and stage conversion rates are displayed as a funnel
+
+**INVEST Evaluation**
+
+| Criterion | Rating | Notes |
+|-----------|--------|-------|
+| Independent | ✅ | Read-only queries against existing data models; no other story blocks development |
+| Negotiable | ✅ | Chart types, KPIs surfaced, date-range granularity, and staleness threshold (currently 60s) are negotiable |
+| Valuable | ✅ | Enables leadership reporting and bottleneck identification; tagged Should have (v2.0) |
+| Estimable | ✅ | Standard BI dashboard pattern; 2 tickets at 8 pts |
+| Small | ✅ | 8 pts fits within a 20-pt sprint |
+| Testable | ✅ | 2 BDD scenarios with measurable data-staleness constraint (≤ 60s) and funnel display verification |
 
 ---
 
@@ -247,6 +335,17 @@ _Date: 2026-04-05_
 - **When** a candidate accesses their application
 - **Then** internal comments are not visible to the candidate
 
+**INVEST Evaluation**
+
+| Criterion | Rating | Notes |
+|-----------|--------|-------|
+| Independent | ✅ | Comment thread only needs candidate profiles to exist; no other story blocks it |
+| Negotiable | ✅ | Notification channels (in-app vs email), @mention scope, and visibility rules are negotiable |
+| Valuable | ✅ | Replaces scattered email threads with in-context collaboration; supports feedback response ≤ 24h KPI |
+| Estimable | ✅ | Comment + notification dispatch pattern; 2 tickets at 6 pts |
+| Small | ✅ | 6 pts fits comfortably within a 20-pt sprint |
+| Testable | ✅ | 2 BDD scenarios — notification delivery verifiable, candidate visibility enforced at API level |
+
 ---
 
 ### US-010: Submit and view structured evaluation scorecards
@@ -268,6 +367,17 @@ _Date: 2026-04-05_
 - **Given** multiple interviewers have submitted scorecards for the same candidate
 - **When** a recruiter or hiring manager views the candidate profile
 - **Then** individual scores with interviewer attribution are visible alongside an average score across all submitted scorecards
+
+**INVEST Evaluation**
+
+| Criterion | Rating | Notes |
+|-----------|--------|-------|
+| Independent | ⚠️ | Logically follows interviews (US-004), but the form, data model, and aggregated view can be built without it |
+| Negotiable | ✅ | Criteria count, scoring scale, locking policy, and HR Admin override capability are negotiable |
+| Valuable | ✅ | Replaces ad-hoc notes with structured feedback; supports the feedback response ≤ 24h KPI |
+| Estimable | ⚠️ | 11 pts is the largest story in the backlog; roadmap flags it as a split risk (TK-022 vs TK-023) |
+| Small | ⚠️ | 11 pts consumes 55% of Sprint 4 capacity; consider splitting TK-022 (template configurator) into a separate story before sprint commit |
+| Testable | ✅ | 2 BDD scenarios covering submission persistence and aggregated score display with attribution |
 
 ---
 
@@ -295,6 +405,17 @@ _Date: 2026-04-05_
 - **Given** a candidate's application has exceeded the configured retention period
 - **When** the retention deadline approaches
 - **Then** HR Admins are notified before automated anonymisation takes place
+
+**INVEST Evaluation**
+
+| Criterion | Rating | Notes |
+|-----------|--------|-------|
+| Independent | ✅ | Admin tooling operates on existing data schemas; no other story blocks development |
+| Negotiable | ✅ | Export format (JSON/CSV), retention period, and alert lead-time are negotiable |
+| Valuable | ✅ | Legal obligation under GDPR; blocks scaling data ingestion without compliance |
+| Estimable | ✅ | Export + anonymisation + scheduled alert pattern; 2 tickets at 8 pts |
+| Small | ✅ | 8 pts fits within a 20-pt sprint |
+| Testable | ✅ | 3 BDD scenarios with measurable SLAs (72h export delivery, logged deletion event, alert before expiry) |
 
 ---
 
