@@ -383,15 +383,15 @@ _Date: 2026-04-05_
 
 #### US-002: Apply for a job as a candidate
 
-**TK-004** · Feature · _Public candidate application form_
+**TK-003** · Feature · _Public candidate application form_
 - Build the public web form (no login required): personal details, resume upload (PDF/DOCX ≤ 5 MB), role-specific questions. Include GDPR consent checkbox.
 - **Points**: 3 · **Priority**: High · **Source**: US-002
 
-**TK-005** · Technical Task · _Candidate profile creation and resume storage_
+**TK-004** · Technical Task · _Candidate profile creation and resume storage_
 - On submission, create a candidate profile, store the uploaded document, and place the candidate in the first pipeline stage. Reject duplicates by email.
 - **Points**: 3 · **Priority**: High · **Source**: US-002
 
-**TK-006** · Technical Task · _GDPR consent capture_
+**TK-005** · Technical Task · _GDPR consent capture_
 - Record explicit consent with timestamp on every submission. Store consent records in an auditable, immutable log. Consent must be retained even after erasure of other candidate data.
 - **Points**: 2 · **Priority**: High · **Source**: US-002
 
@@ -399,11 +399,11 @@ _Date: 2026-04-05_
 
 #### US-003: Manage candidates on the pipeline board
 
-**TK-008** · Feature · _Kanban pipeline board_
+**TK-006** · Feature · _Kanban pipeline board_
 - Build the per-job Kanban board with candidate cards (name, days in stage, last activity). Support drag-and-drop and bulk stage move via action menu.
 - **Points**: 5 · **Priority**: High · **Source**: US-003
 
-**TK-009** · Technical Task · _Stage transition logic and automation triggers_
+**TK-007** · Technical Task · _Stage transition logic and automation triggers_
 - Implement stage change persistence, audit log (actor + timestamp), and the trigger dispatcher that fires configured automations on transition.
 - **Points**: 3 · **Priority**: High · **Source**: US-003
 
@@ -411,15 +411,15 @@ _Date: 2026-04-05_
 
 #### US-004: Schedule an interview with automatic invites
 
-**TK-011** · Feature · _Interview scheduling UI_
+**TK-008** · Feature · _Interview scheduling UI_
 - Build the inline scheduling panel on the candidate profile: date/time picker, participant selector, optional external meeting link field.
 - **Points**: 3 · **Priority**: High · **Source**: US-004
 
-**TK-012** · Technical Task · _iCal invite generation and email dispatch_
+**TK-009** · Technical Task · _iCal invite generation and email dispatch_
 - Generate a standard iCal (.ics) file per interview and send it to all participants via the email delivery service. Cancel and reissue on reschedule.
 - **Points**: 3 · **Priority**: High · **Source**: US-004
 
-**TK-013** · Technical Task · _24-hour interview reminder job_
+**TK-010** · Technical Task · _24-hour interview reminder job_
 - Implement a scheduled job that sends a reminder email to all interview participants 24 hours before the scheduled time.
 - **Points**: 2 · **Priority**: Medium · **Source**: US-004
 
@@ -427,11 +427,11 @@ _Date: 2026-04-05_
 
 #### US-005: Receive automated status emails
 
-**TK-015** · Feature · _Email template editor_
+**TK-011** · Feature · _Email template editor_
 - Build the HR Admin template editor: create/edit templates per pipeline stage, support candidate name merge tag, enforce non-deletable acknowledgment and rejection defaults.
 - **Points**: 3 · **Priority**: High · **Source**: US-005
 
-**TK-016** · Technical Task · _Stage-triggered email dispatch_
+**TK-012** · Technical Task · _Stage-triggered email dispatch_
 - On stage transition, look up the configured template for the new stage and dispatch an email to the candidate within 5 minutes. Rejection email must always fire and cannot be disabled.
 - **Points**: 3 · **Priority**: High · **Source**: US-005
 
@@ -441,15 +441,15 @@ _Date: 2026-04-05_
 
 #### US-006: Get an AI fit score for every applicant
 
-**TK-018** · Spike · _AI resume scoring — model and API selection_ (max 2 days)
-- Evaluate available LLM APIs for resume-to-JD fit scoring. Produce a decision document covering accuracy, latency (target < 60s), cost, and GDPR data-processing implications. Outcome feeds TK-019.
+**TK-013** · Spike · _AI resume scoring — model and API selection_ (max 2 days)
+- Evaluate available LLM APIs for resume-to-JD fit scoring. Produce a decision document covering accuracy, latency (target < 60s), cost, and GDPR data-processing implications. Outcome feeds TK-014.
 - **Points**: 2 · **Priority**: High · **Source**: US-006
 
-**TK-019** · Technical Task · _AI scoring service integration_
-- Integrate the selected API (from TK-018 spike). On application submission, extract resume text, call the scoring endpoint, and persist score (0–100) + rationale (≤ 3 bullets) on the candidate profile.
+**TK-014** · Technical Task · _AI scoring service integration_
+- Integrate the selected API (from TK-013 spike). On application submission, extract resume text, call the scoring endpoint, and persist score (0–100) + rationale (≤ 3 bullets) on the candidate profile.
 - **Points**: 5 · **Priority**: High · **Source**: US-006
 
-**TK-020** · Feature · _Fit score display on pipeline board and candidate profile_
+**TK-015** · Feature · _Fit score display on pipeline board and candidate profile_
 - Show the AI score and rationale on the candidate card and profile. Label score as AI-generated. Add "Override" action that records the override in the audit log.
 - **Points**: 3 · **Priority**: High · **Source**: US-006
 
@@ -457,11 +457,11 @@ _Date: 2026-04-05_
 
 #### US-007: Draft a job description with AI assistance
 
-**TK-022** · Technical Task · _AI job description generation integration_
+**TK-016** · Technical Task · _AI job description generation integration_
 - Integrate the LLM API to generate a structured job description draft (summary, responsibilities, requirements, nice-to-haves) from role title and department input. Response target: < 10s.
 - **Points**: 3 · **Priority**: High · **Source**: US-007
 
-**TK-023** · Feature · _"Generate with AI" button and draft editor_
+**TK-017** · Feature · _"Generate with AI" button and draft editor_
 - Add the AI generation trigger to the requisition form. Display the draft in an editable rich-text editor. Support "Regenerate" (incorporates edits) and "Undo" (restores previous draft).
 - **Points**: 3 · **Priority**: High · **Source**: US-007
 
@@ -469,11 +469,11 @@ _Date: 2026-04-05_
 
 #### US-008: View pipeline health and time-to-hire metrics
 
-**TK-025** · Technical Task · _Metrics aggregation queries_
+**TK-018** · Technical Task · _Metrics aggregation queries_
 - Implement data queries for: open roles count, candidates per stage, average time-to-hire per job and aggregate, stage conversion rates. Apply role-based access filtering.
 - **Points**: 3 · **Priority**: Medium · **Source**: US-008
 
-**TK-026** · Feature · _Reporting dashboard UI_
+**TK-019** · Feature · _Reporting dashboard UI_
 - Build the dashboard view: pipeline health summary cards, time-to-hire trend, stage conversion funnel. Data must be no more than 60 seconds stale.
 - **Points**: 5 · **Priority**: Medium · **Source**: US-008
 
@@ -483,11 +483,11 @@ _Date: 2026-04-05_
 
 #### US-009: Collaborate via comments and mentions
 
-**TK-028** · Feature · _Comment thread with @mention on candidate profile_
+**TK-020** · Feature · _Comment thread with @mention on candidate profile_
 - Build the comment thread UI on the candidate profile. Support @username autocomplete. Display comments in chronological order with author and timestamp. Show comment count on pipeline card.
 - **Points**: 3 · **Priority**: High · **Source**: US-009
 
-**TK-029** · Technical Task · _Mention notification dispatch_
+**TK-021** · Technical Task · _Mention notification dispatch_
 - On @mention, send an in-app notification and an email to the mentioned user. Ensure comments are never visible to candidates.
 - **Points**: 3 · **Priority**: High · **Source**: US-009
 
@@ -495,15 +495,15 @@ _Date: 2026-04-05_
 
 #### US-010: Submit and view evaluation scorecards
 
-**TK-031** · Feature · _Scorecard template configurator (HR Admin)_
+**TK-022** · Feature · _Scorecard template configurator (HR Admin)_
 - Build the admin UI to create and manage scorecard templates (≤ 5 criteria per template) assignable per job type.
 - **Points**: 3 · **Priority**: High · **Source**: US-010
 
-**TK-032** · Feature · _Scorecard submission form and aggregated results view_
+**TK-023** · Feature · _Scorecard submission form and aggregated results view_
 - Build the interviewer scorecard submission form (locked after submit). Display individual scores with attribution and average score on the candidate profile.
 - **Points**: 5 · **Priority**: High · **Source**: US-010
 
-**TK-033** · Technical Task · _Scorecard data model and submission lock_
+**TK-024** · Technical Task · _Scorecard data model and submission lock_
 - Implement scorecard persistence, locking after submission, HR Admin override capability, and recruiter notification on submission.
 - **Points**: 3 · **Priority**: High · **Source**: US-010
 
@@ -511,11 +511,11 @@ _Date: 2026-04-05_
 
 #### US-011: Manage candidate data for GDPR
 
-**TK-035** · Feature · _GDPR admin tools: export, erasure, retention alerts_
+**TK-025** · Feature · _GDPR admin tools: export, erasure, retention alerts_
 - Build the HR Admin GDPR panel: trigger data export (JSON/CSV, delivered within 72h), execute erasure (anonymise PII, preserve aggregate data), view retention expiry alerts.
 - **Points**: 5 · **Priority**: High · **Source**: US-011
 
-**TK-036** · Technical Task · _Data anonymisation job and retention enforcement_
+**TK-026** · Technical Task · _Data anonymisation job and retention enforcement_
 - Implement the scheduled retention check: notify HR Admins before expiry, anonymise PII on the expiry date if not extended. Log all actions with timestamp and actor.
 - **Points**: 3 · **Priority**: High · **Source**: US-011
 
@@ -527,30 +527,30 @@ _Date: 2026-04-05_
 |--------|------|-------|-------|--------|----------|
 | TK-001 | Feature | US-001 | Job requisition form | 3 | High |
 | TK-002 | Technical Task | US-001 | Requisition data model and API | 3 | High |
-| TK-004 | Feature | US-002 | Public candidate application form | 3 | High |
-| TK-005 | Technical Task | US-002 | Candidate profile creation and resume storage | 3 | High |
-| TK-006 | Technical Task | US-002 | GDPR consent capture | 2 | High |
-| TK-008 | Feature | US-003 | Kanban pipeline board | 5 | High |
-| TK-009 | Technical Task | US-003 | Stage transition logic and automation triggers | 3 | High |
-| TK-011 | Feature | US-004 | Interview scheduling UI | 3 | High |
-| TK-012 | Technical Task | US-004 | iCal invite generation and email dispatch | 3 | High |
-| TK-013 | Technical Task | US-004 | 24-hour interview reminder job | 2 | Medium |
-| TK-015 | Feature | US-005 | Email template editor | 3 | High |
-| TK-016 | Technical Task | US-005 | Stage-triggered email dispatch | 3 | High |
-| TK-018 | Spike | US-006 | AI resume scoring — model and API selection | 2 | High |
-| TK-019 | Technical Task | US-006 | AI scoring service integration | 5 | High |
-| TK-020 | Feature | US-006 | Fit score display on pipeline board and candidate profile | 3 | High |
-| TK-022 | Technical Task | US-007 | AI job description generation integration | 3 | High |
-| TK-023 | Feature | US-007 | "Generate with AI" button and draft editor | 3 | High |
-| TK-025 | Technical Task | US-008 | Metrics aggregation queries | 3 | Medium |
-| TK-026 | Feature | US-008 | Reporting dashboard UI | 5 | Medium |
-| TK-028 | Feature | US-009 | Comment thread with @mention on candidate profile | 3 | High |
-| TK-029 | Technical Task | US-009 | Mention notification dispatch | 3 | High |
-| TK-031 | Feature | US-010 | Scorecard template configurator (HR Admin) | 3 | High |
-| TK-032 | Feature | US-010 | Scorecard submission form and aggregated results view | 5 | High |
-| TK-033 | Technical Task | US-010 | Scorecard data model and submission lock | 3 | High |
-| TK-035 | Feature | US-011 | GDPR admin tools: export, erasure, retention alerts | 5 | High |
-| TK-036 | Technical Task | US-011 | Data anonymisation job and retention enforcement | 3 | High |
+| TK-003 | Feature | US-002 | Public candidate application form | 3 | High |
+| TK-004 | Technical Task | US-002 | Candidate profile creation and resume storage | 3 | High |
+| TK-005 | Technical Task | US-002 | GDPR consent capture | 2 | High |
+| TK-006 | Feature | US-003 | Kanban pipeline board | 5 | High |
+| TK-007 | Technical Task | US-003 | Stage transition logic and automation triggers | 3 | High |
+| TK-008 | Feature | US-004 | Interview scheduling UI | 3 | High |
+| TK-009 | Technical Task | US-004 | iCal invite generation and email dispatch | 3 | High |
+| TK-010 | Technical Task | US-004 | 24-hour interview reminder job | 2 | Medium |
+| TK-011 | Feature | US-005 | Email template editor | 3 | High |
+| TK-012 | Technical Task | US-005 | Stage-triggered email dispatch | 3 | High |
+| TK-013 | Spike | US-006 | AI resume scoring — model and API selection | 2 | High |
+| TK-014 | Technical Task | US-006 | AI scoring service integration | 5 | High |
+| TK-015 | Feature | US-006 | Fit score display on pipeline board and candidate profile | 3 | High |
+| TK-016 | Technical Task | US-007 | AI job description generation integration | 3 | High |
+| TK-017 | Feature | US-007 | "Generate with AI" button and draft editor | 3 | High |
+| TK-018 | Technical Task | US-008 | Metrics aggregation queries | 3 | Medium |
+| TK-019 | Feature | US-008 | Reporting dashboard UI | 5 | Medium |
+| TK-020 | Feature | US-009 | Comment thread with @mention on candidate profile | 3 | High |
+| TK-021 | Technical Task | US-009 | Mention notification dispatch | 3 | High |
+| TK-022 | Feature | US-010 | Scorecard template configurator (HR Admin) | 3 | High |
+| TK-023 | Feature | US-010 | Scorecard submission form and aggregated results view | 5 | High |
+| TK-024 | Technical Task | US-010 | Scorecard data model and submission lock | 3 | High |
+| TK-025 | Feature | US-011 | GDPR admin tools: export, erasure, retention alerts | 5 | High |
+| TK-026 | Technical Task | US-011 | Data anonymisation job and retention enforcement | 3 | High |
 
 **Total tickets**: 26 · **Total points**: 85
 **Breakdown**: 11 Feature · 14 Technical Task · 1 Spike
@@ -596,7 +596,7 @@ _Total: 85 pts across 5 sprints (10 weeks)_
 | US-007 | Draft a job description with AI assistance | Must have | 6 |
 | **Total** | | | **16 / 20 pts** · 4 pts buffer |
 
-> ⚠️ **Dependency**: TK-018 (Spike — AI model selection, 2 pts) must complete in week 1 of this sprint before TK-019 (AI scoring integration, 5 pts) can start in week 2.
+> ⚠️ **Dependency**: TK-013 (Spike — AI model selection, 2 pts) must complete in week 1 of this sprint before TK-014 (AI scoring integration, 5 pts) can start in week 2.
 
 ---
 
@@ -639,8 +639,8 @@ _Total: 85 pts across 5 sprints (10 weeks)_
 
 ### Risks & Flags
 
-- **TK-018 Spike gates Sprint 3**: if the AI model selection takes longer than week 1 of Sprint 3, TK-019 (5 pts) slips to Sprint 4, pushing US-006 across two sprints. Mitigation: timebox the spike strictly to 2 days.
-- **US-010 at 11 pts** is the largest story in the backlog and consumes 55% of Sprint 4 capacity. If scope grows during refinement, split the scorecard template configurator (TK-031) from the submission form (TK-032) into separate stories before sprint commit.
+- **TK-013 Spike gates Sprint 3**: if the AI model selection takes longer than week 1 of Sprint 3, TK-014 (5 pts) slips to Sprint 4, pushing US-006 across two sprints. Mitigation: timebox the spike strictly to 2 days.
+- **US-010 at 11 pts** is the largest story in the backlog and consumes 55% of Sprint 4 capacity. If scope grows during refinement, split the scorecard template configurator (TK-022) from the submission form (TK-023) into separate stories before sprint commit.
 - **Buffer capacity**: 15 pts of buffer across 5 sprints (Sprints 2, 3, 4, 5 have 4/4/3/4 pts free). Recommended use: defect fixes, refinement spikes, or pulling in out-of-scope stories if capacity allows.
 
 ---
