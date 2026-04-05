@@ -12,7 +12,7 @@ skills:
   - prd-generator
   - user-story-writer
   - story-map-generator
-  - planning-poker
+  - estimate-effort
   - ticket-writer
 tools:
   - Read
@@ -41,7 +41,7 @@ All skills live at:
 | 1 | `prd-generator` | `PRDs/PRD-NNN-slug.md` |
 | 2 | `user-story-writer` | `user-stories/US-NNN-slug.md` |
 | 3 | `story-map-generator` | `story-maps/SM-NNN-slug.md` |
-| 4 | `planning-poker` | Sprint estimation summary |
+| 4 | `estimate-effort` | Sprint estimation summary |
 | 5 | `ticket-writer` | `tickets/TK-NNN-slug.md` |
 | 6 | *(roadmap — see below)* | `roadmaps/ROADMAP-NNN-slug.md` |
 
@@ -95,7 +95,7 @@ Organize stories into backbone + release cut lines (MVP · v1.1 · v2.0).
 
 ### Stage 4 — Planning Poker
 
-Read `.claude/skills/planning-poker/SKILL.md` and follow it.
+Read `.claude/skills/estimate-effort/SKILL.md` and follow it.
 Estimate MVP stories by layer using Fibonacci. Flag splits (≥ 8 pts).
 
 **Hand-off to Stage 5:** `[ { id, layers: { layer: pts }, total } ]`

@@ -1,5 +1,5 @@
 ---
-name: planning-poker
+name: estimate-effort
 description: >
   Estimate development effort for user stories and sprint backlogs using
   Planning Poker (Fibonacci) broken down by technology layer, combined with
