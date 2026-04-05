@@ -148,3 +148,25 @@ Record of all metaprompts used to generate artifacts in this project. Each entry
 > Revisando la documentación, faltaba la parte de INVEST por cada Story. El formato de tabla con ✅/⚠️ más una nota concreta por criterio es mucho más útil que una evaluación narrativa. El rating ⚠️ obliga a documentar el riesgo en lugar de ignorarlo, lo que hace el INVEST accionable durante la refinement session.
 
 ---
+
+## Technical Spec per Ticket
+
+**Prompt (metaprompt):**
+> As a Tech Lead of LTI ATS, read `LTI-JCT/UserStories-JCT.md` and enrich every TK-NNN ticket in the `## Product Backlog` section with a `**Technical Spec:**` block. Edit the file in place — do not create a new file or modify any other section.
+
+- For each ticket add a `**Technical Spec:**` subsection immediately after the `**Points/Priority/Source**` line with the following content depending on ticket type:
+  - **Feature tickets**: API endpoints consumed (method, path, request/response shape), key UI behaviour, integration points
+  - **Technical Task tickets**: DB schema changes (table DDL with column names, types, constraints, and indexes), REST endpoint contracts (method, path, request body, response codes), queue events produced or consumed, error handling and retry policy
+  - **Spike tickets**: evaluation criteria matrix, output artefact (e.g. ADR), timebox enforcement note
+- DB schemas must include: column names and types, primary key, foreign key constraints, relevant CHECK constraints, and at least one index where appropriate
+- API contracts must include: HTTP method + path, request body shape, success response code, and key error codes (409, 403, 400, etc.)
+- Queue events must include: event name, producer ticket, consumer ticket(s), and payload shape
+- Do not invent functionality outside the ticket's existing description; only add technical precision to what is already specified
+- Do not modify the INVEST tables, story text, acceptance criteria, or any section outside `## Product Backlog`
+
+**Output:** `LTI-JCT/UserStories-JCT.md` — `**Technical Spec:**` block appended inline after each TK-NNN ticket's points/priority line
+
+**Opinion:**
+> Revisando la documentación, faltaba añadir una descripción técnica a las tareas, no muy detalladas pero al menos tener una referencia en cada una de las decisiones técnicas que se tomaron en los ADRs de la tarea anterior
+
+---
